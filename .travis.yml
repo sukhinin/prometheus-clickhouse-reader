@@ -1,0 +1,24 @@
+language: java
+os: linux
+jdk: openjdk8
+
+branches:
+  except:
+  - gh-pages
+
+deploy:
+  - provider: releases
+    api_key:
+      secure: dOOAkvKfh3MVos5No6+q6o5ShyXaxMUUHf/6lLzBoQvAyqGvTsiG9OMXMe7OwdfHVQjQdmXrJi+DDr5JtCicZPuqAcFXXjz8oumR47REE/iBACC+sWA9kVyMXppvGRbpO7JVP/wqWJZEOlF4nvpTMLSM9Fsc14Ec46fp1r7Ejw3b/xdy+X4sG2YgcGDsVt+S+o9JjGf/HaBXj51M5ezhkaJ6RClQy6L4z+auEk7Ybpey/O1/9hU7rG2scbOxZjO9M2kNBffdyxvMgTXfnppHtqgz4bKhxMFISBHQG51v62ZRZRMvCQp7LZbpdPKrZcJAai8sXoj6DdsCSThk6L63f8fmZwGpDr/uGN55KH+NaILeFMLKiBq3f/VbR489WSM2DpxpJ+icHf+RnMbQK7Cpvyi6locxbWNhvl8VFXyuvwBP0ihAudx0G6D53CreLekEQcgjpJKp2s2+herlQXrBICSFZunxOwvkgWADbGqmisL6imKH1bHZAfi6lOpKW9N36sPb42gCayIKOi63Ik29a/f/pyNcvvUZIuYeKbKzaWpbJd2l+1I05aqEVwxgiT+dQ6JTAmu3dnss+JjRU33FXlPA4m3XpOrE8nd5TMJ0dk5+jO0ZVRZSxjNWJEQIIP0MAVdy9h8dku0ILUWZTj/Wnys6Ida/uZk6TAAAGo3BPRI=
+    skip_cleanup: true
+    file_glob: true
+    file: build/libs/prometheus-clickhouse-reader-*-all.jar
+    draft: true
+    on:
+      tags: true
+  - provider: script
+    script: ./gradlew bintrayUpload
+    skip_cleanup: true
+    on:
+      branch: master
+      tags: true
