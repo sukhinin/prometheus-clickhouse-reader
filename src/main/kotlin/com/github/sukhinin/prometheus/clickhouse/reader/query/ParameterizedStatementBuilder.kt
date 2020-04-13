@@ -28,10 +28,7 @@ class ParameterizedStatementBuilder(private val config: QueryConfig) {
             parameters.addAll(params)
         }
 
-        return ParameterizedStatement(
-            builder.toString(),
-            parameters
-        )
+        return ParameterizedStatement(builder.toString(), parameters)
     }
 
     private fun wrapWithSimpleQuery(stmt: ParameterizedStatement): ParameterizedStatement {
@@ -48,10 +45,7 @@ class ParameterizedStatementBuilder(private val config: QueryConfig) {
         builder.append("ORDER BY t ASC ")
         builder.append("LIMIT ${config.limitRows} ")
 
-        return ParameterizedStatement(
-            builder.toString(),
-            stmt.params
-        )
+        return ParameterizedStatement(builder.toString(), stmt.params)
     }
 
     private fun wrapWithGroupingQuery(stmt: ParameterizedStatement, query: Query): ParameterizedStatement {
@@ -71,10 +65,7 @@ class ParameterizedStatementBuilder(private val config: QueryConfig) {
         builder.append("ORDER BY t ASC ")
         builder.append("LIMIT ${config.limitRows} ")
 
-        return ParameterizedStatement(
-            builder.toString(),
-            stmt.params
-        )
+        return ParameterizedStatement(builder.toString(), stmt.params)
     }
 
     private fun renderFilter(matcher: LabelMatcher): Pair<String, List<String>> {
