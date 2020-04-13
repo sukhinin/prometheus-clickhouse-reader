@@ -45,7 +45,8 @@ class ParameterizedStatementBuilder(private val config: QueryConfig) {
         builder.append("FROM ( ")
         builder.append(stmt.body)
         builder.append(") ")
-        builder.append("ORDER BY t ASC")
+        builder.append("ORDER BY t ASC ")
+        builder.append("LIMIT ${config.limitRows} ")
 
         return ParameterizedStatement(
             builder.toString(),
@@ -67,7 +68,8 @@ class ParameterizedStatementBuilder(private val config: QueryConfig) {
         builder.append(") ")
         builder.append("GROUP BY metric, tags.name, tags.value, t ")
         builder.append(extractedColumns)
-        builder.append("ORDER BY t ASC")
+        builder.append("ORDER BY t ASC ")
+        builder.append("LIMIT ${config.limitRows} ")
 
         return ParameterizedStatement(
             builder.toString(),
