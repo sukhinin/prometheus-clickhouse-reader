@@ -40,10 +40,7 @@ object RemoteReadServer {
             setupCommonMeterBindings()
 
             val datasource = BalancedClickhouseDataSource(config.clickHouse.url, config.clickHouse.props)
-            val statementBuilder =
-                ParameterizedStatementBuilder(
-                    config.query
-                )
+            val statementBuilder = ParameterizedStatementBuilder(config.query)
             val handler = ReadRequestHandler(config.query, datasource, statementBuilder)
 
             val server = createJavalinServer()
@@ -83,6 +80,7 @@ object RemoteReadServer {
             .withFallback(applicationConfig)
             .withFallback(referenceConfig)
             .resolved()
+
         logger.info("Loaded configuration:\n\t" + config.masked().dump().replace("\n", "\n\t"))
 
         return ConfigMapper.from(config)
